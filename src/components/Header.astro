@@ -2,7 +2,7 @@
 const nav = [
   { label: 'Work', href: '/case-studies' },
   { label: 'Services', href: '/#services' },
-  { label: 'Contact', href: 'mailto:hello@bithdev.ie' },
+  { label: 'Contact', href: 'mailto:UNKNOWN@gmail.com' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -10,8 +10,8 @@ const currentPath = Astro.url.pathname;
 
 <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-slate-200">
   <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="/" class="font-bold text-slate-900 text-lg tracking-tight hover:text-accent transition-colors">
-      BithDev
+    <a href="/" class="flex items-center gap-3" aria-label="BithDev home">
+      <img src="/BithDev-transparent.png" alt="BithDev" class="h-16 w-auto object-contain sm:h-20" />
     </a>
 
     <nav class="flex items-center gap-8">
