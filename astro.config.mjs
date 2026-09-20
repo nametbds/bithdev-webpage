@@ -2,8 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: process.env.NODE_ENV === 'production' ? 'https://nametbds.github.io' : undefined,
-  base: process.env.NODE_ENV === 'production' ? '/bithdev-webpage' : '/',
+  site: 'https://nametbds.github.io',
   output: 'static',
   integrations: [tailwind()],
 });
