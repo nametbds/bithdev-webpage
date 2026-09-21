@@ -2,15 +2,25 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
+const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+
 const caseStudies = await getCollection('case-studies');
+
 const sorted = caseStudies.sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 ---
 
-<BaseLayout title="Case Studies" description="Software projects built by BithDev.">
+<BaseLayout
+  title="Case Studies"
+  description="Software projects built by BithDev."
+>
   <section class="max-w-4xl mx-auto px-6 py-20">
-    <h1 class="text-4xl font-bold text-slate-900 mb-4">Case studies</h1>
+    <h1 class="text-4xl font-bold text-slate-900 mb-4">
+      Case studies
+    </h1>
+
     <p class="text-lg text-slate-600 mb-16 max-w-xl">
       A selection of projects we've built. More in progress.
     </p>
@@ -19,18 +29,23 @@ const sorted = caseStudies.sort(
       {
         sorted.map((cs) => (
           <a
-            href={`/case-studies/${cs.slug}`}
+            href={`${base}case-studies/${cs.slug}/`}
             class="group flex flex-col sm:flex-row sm:items-center gap-4 p-6 bg-white hover:bg-slate-50 transition-colors"
           >
             <div class="flex-1">
               <p class="text-xs font-medium text-accent uppercase tracking-widest mb-1">
                 {cs.data.client}
               </p>
+
               <h2 class="text-lg font-semibold text-slate-900 group-hover:text-accent transition-colors">
                 {cs.data.title}
               </h2>
-              <p class="text-sm text-slate-500 mt-1">{cs.data.summary}</p>
+
+              <p class="text-sm text-slate-500 mt-1">
+                {cs.data.summary}
+              </p>
             </div>
+
             <div class="flex flex-wrap gap-2 sm:justify-end">
               {cs.data.techStack.slice(0, 3).map((tech) => (
                 <span class="px-2.5 py-1 bg-slate-100 text-slate-500 text-xs font-medium rounded-full">

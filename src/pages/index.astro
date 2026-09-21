@@ -2,10 +2,17 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
+const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+
 const allCaseStudies = await getCollection('case-studies');
+
 const featured = allCaseStudies
   .filter((cs) => cs.data.featured)
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+  .sort(
+    (a, b) =>
+      new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  );
 
 const services = [
   {
@@ -30,19 +37,23 @@ const services = [
 ---
 
 <BaseLayout title="Software engineers for hire">
+
   <!-- Hero -->
   <section class="max-w-6xl mx-auto px-6 pt-24 pb-20">
     <div class="max-w-3xl">
       <p class="text-sm font-medium text-accent uppercase tracking-widest mb-4">
         Ireland
       </p>
+
       <h1 class="text-5xl sm:text-6xl font-bold text-slate-900 leading-tight mb-6">
         We build the software<br />your product runs on.
       </h1>
+
       <p class="text-xl text-slate-600 leading-relaxed mb-8 max-w-2xl">
         BithDev is a small team of software engineers based in Ireland. We take on contract work for
         startups and scale-ups — billing systems, SaaS backends, and AI integrations.
       </p>
+
       <div class="flex flex-wrap gap-4">
         <a
           href="mailto:UNKNOWN@gmail.com"
@@ -50,8 +61,9 @@ const services = [
         >
           Get in touch
         </a>
+
         <a
-          href="/case-studies"
+          href={`${base}case-studies/`}
           class="inline-flex items-center px-6 py-3 border border-slate-300 text-slate-700 text-sm font-medium rounded-lg hover:border-slate-900 hover:text-slate-900 transition-colors"
         >
           See our work
@@ -70,12 +82,19 @@ const services = [
     <h2 class="text-sm font-medium text-slate-400 uppercase tracking-widest mb-12">
       What we do
     </h2>
+
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
       {
         services.map(({ title, description, tags }) => (
           <div class="p-6 border border-slate-200 rounded-xl hover:border-slate-400 transition-colors">
-            <h3 class="text-lg font-semibold text-slate-900 mb-3">{title}</h3>
-            <p class="text-slate-600 text-sm leading-relaxed mb-5">{description}</p>
+            <h3 class="text-lg font-semibold text-slate-900 mb-3">
+              {title}
+            </h3>
+
+            <p class="text-slate-600 text-sm leading-relaxed mb-5">
+              {description}
+            </p>
+
             <div class="flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <span class="px-2.5 py-1 bg-slate-100 text-slate-500 text-xs font-medium rounded-full">
@@ -97,26 +116,33 @@ const services = [
           <h2 class="text-sm font-medium text-slate-400 uppercase tracking-widest">
             Case studies
           </h2>
+
           <a
-            href="/case-studies"
+            href={`${base}case-studies/`}
             class="text-sm text-slate-500 hover:text-slate-900 transition-colors"
           >
             All work →
           </a>
         </div>
+
         <div class="grid sm:grid-cols-2 gap-8">
           {featured.map((cs) => (
             <a
-              href={`/case-studies/${cs.slug}`}
+              href={`${base}case-studies/${cs.slug}/`}
               class="group p-8 border border-slate-200 rounded-xl hover:border-slate-400 transition-colors"
             >
               <p class="text-xs font-medium text-accent uppercase tracking-widest mb-3">
                 {cs.data.client}
               </p>
+
               <h3 class="text-xl font-semibold text-slate-900 mb-3 group-hover:text-accent transition-colors">
                 {cs.data.title}
               </h3>
-              <p class="text-slate-600 text-sm leading-relaxed mb-5">{cs.data.summary}</p>
+
+              <p class="text-slate-600 text-sm leading-relaxed mb-5">
+                {cs.data.summary}
+              </p>
+
               <div class="flex flex-wrap gap-2">
                 {cs.data.techStack.slice(0, 4).map((tech) => (
                   <span class="px-2.5 py-1 bg-slate-100 text-slate-500 text-xs font-medium rounded-full">
@@ -134,11 +160,15 @@ const services = [
   <!-- CTA -->
   <section class="max-w-6xl mx-auto px-6 pb-24">
     <div class="bg-slate-950 rounded-2xl p-12 text-center">
-      <h2 class="text-3xl font-bold text-white mb-4">Working on something?</h2>
+      <h2 class="text-3xl font-bold text-white mb-4">
+        Working on something?
+      </h2>
+
       <p class="text-slate-400 mb-8 max-w-lg mx-auto">
         We're a small team — we take on a limited number of projects at a time. If you have
         something in mind, drop us a line.
       </p>
+
       <a
         href="mailto:UNKNOWN@gmail.com"
         class="inline-flex items-center px-6 py-3 bg-white text-slate-900 text-sm font-medium rounded-lg hover:bg-slate-100 transition-colors"
@@ -147,4 +177,5 @@ const services = [
       </a>
     </div>
   </section>
+
 </BaseLayout>
